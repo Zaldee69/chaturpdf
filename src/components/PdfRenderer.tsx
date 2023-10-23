@@ -123,7 +123,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
           </Button>
         </div>
 
-        <div className="space-x-2">
+        <div className="space-x-2 hidden md:block ">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button aria-label="zoom" variant="ghost" className="gap-1.5">
