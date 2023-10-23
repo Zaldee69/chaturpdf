@@ -38,7 +38,7 @@ export const POST = async (req: NextRequest) => {
     },
   });
 
-  if (allMessages.length >= 3)
+  if (allMessages.length >= 20)
     return new Response("You was reach chat limit, please upgrade your plan", {
       status: 402,
     });
