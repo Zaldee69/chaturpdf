@@ -183,7 +183,6 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
       }
     },
     onError: (err, __, context) => {
-      console.log("error 1", err);
       setMessage(backupMessage.current);
       utils.getFileMessages.setData(
         { fileId },

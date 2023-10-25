@@ -4,12 +4,22 @@ import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import {
   LoginLink,
+  LogoutLink,
   RegisterLink,
   getKindeServerSession,
 } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ArrowRight, User } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
-const Navbar = async () => {
+const Navbar = () => {
   const { getUser, isAuthenticated } = getKindeServerSession();
   const user = getUser();
   return (
@@ -19,7 +29,7 @@ const Navbar = async () => {
           <Link href="/" className="flex z-40 font-semibold">
             <span>chaturpdf.</span>
           </Link>
-          {await isAuthenticated() ? (
+          {isAuthenticated() ? (
             <div className="flex items-center space-x-4">
               <Link
                 className={buttonVariants({
@@ -30,9 +40,34 @@ const Navbar = async () => {
               >
                 Dashboard
               </Link>
-              <span className="bg-zinc-200 border-gray-500 rounded-full p-1.5">
-                <User className="w-5 h-5 " />
-              </span>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <span className="bg-zinc-200 border-gray-500 rounded-full p-1.5">
+                    <User className="w-5 h-5 " />
+                  </span>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">
+                        {user.given_name} {user.family_name}
+                      </p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {user.email}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <DropdownMenuItem>Billing</DropdownMenuItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <LogoutLink>Logout</LogoutLink>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           ) : (
             <div className="hidden items-center space-x-4 sm:flex">

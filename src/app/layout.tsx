@@ -23,7 +23,6 @@ export default function RootLayout({
   const fullUrl = headersList.get("referer") || "";
   const [, pathname] =
     fullUrl.match(new RegExp(`https?:\/\/${domain}(.*)`)) || [];
-  console.log(pathname);
   return (
     <html lang="en" className="light">
       <Providers>

@@ -7,7 +7,6 @@ import Skeleton from "react-loading-skeleton";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Button } from "./ui/button";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 export const Dashboard = () => {
   const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<
@@ -20,12 +19,15 @@ export const Dashboard = () => {
 
   const { mutate: deleteFile } = trpc.deleteFile.useMutation({
     onSuccess: () => {
+      console.log(1)
       utils.getUserFiles.invalidate();
     },
     onMutate({ id }) {
+      console.log(2)
       setCurrentlyDeletingFile(id);
     },
     onSettled() {
+      console.log(3)
       setCurrentlyDeletingFile(null);
     },
   });
